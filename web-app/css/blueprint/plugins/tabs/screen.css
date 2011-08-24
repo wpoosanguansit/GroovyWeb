@@ -1,0 +1,52 @@
+	pre {text-indent: 30px}
+
+	#tabmenu {
+		color: #000;
+		border-bottom: 2px solid #99ccff;
+		margin: 12px 0px 0px 0px;
+		padding: 0px;
+		z-index: 1;
+		padding-left: 10px }
+
+	#tabmenu li {
+		display: inline;
+		overflow: hidden;
+		list-style-type: none; }
+
+	#tabmenu a, a.active {
+		color: #333333;
+		background: #ccccff;
+		font: bold 1em "Trebuchet MS", Arial, sans-serif;
+		border: 2px solid #99ccff;
+		padding: 2px 5px 0px 5px;
+		margin: 0px;
+		text-decoration: none; }
+
+	#tabmenu a.active {
+		background: #ffffff;
+		border-bottom: 3px solid #ffffff; }
+
+	#tabmenu a:hover {
+		color: #ccccff;
+		background: #ffffff; }
+
+	#tabmenu a:visited {
+		color: #E8E9BE; }
+
+	#tabmenu a.active:hover {
+		background: #ffffff;
+		color: #ccccff; }
+
+	#content {font: 0.9em/1.3em "bitstream vera sans", verdana, sans-serif;
+		text-align: justify;
+		background: #ffffff;
+		padding: 20px;
+		border: 2px solid #99ccff;
+		border-top: none;
+		z-index: 2;	}
+
+	#content a {
+		text-decoration: none;
+		color: #333333; }
+
+	#content a:hover { background: #333333; }

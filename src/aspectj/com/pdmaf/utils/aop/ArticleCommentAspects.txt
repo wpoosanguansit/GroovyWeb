@@ -1,0 +1,30 @@
+package com.pdmaf.utils.aop;
+
+import com.pdmaf.persistence.Dao;
+import com.pdmaf.persistence.GenericDao;
+import com.pdmaf.business.models.Article;
+import com.pdmaf.business.models.Comment;
+/**
+ * This is to add comment to the article once the comment is saved.
+ * 
+ * @author watt
+ *
+ */
+public aspect ArticleCommentAspects {
+
+	public pointcut commentSave(Dao dao, Comment comment): 
+		call(* Dao.save(comment) && args(comment) && target(dao));
+	
+	after (Dao dao, Comment comment) : commentSave(Dao dao, Comment comment) {
+		Fields fields = Comment.getClass().getDeclaredFields();
+		for (Field field : fields) {
+			if (field.getName() == "article") {
+				Article article = (Article)field.get(comment);
+				article.addComment(comment);
+				GenericDao dao = new GenericDao(Article.class);
+				dao.save(article);
+				return;
+			}
+		}
+	}
+}

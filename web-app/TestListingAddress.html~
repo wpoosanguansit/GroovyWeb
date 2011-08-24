@@ -1,0 +1,246 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0014)about:internet -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>jQuery Address Tabs</title>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<link rel="stylesheet" href="css/blueprint/screen.css" type="text/css" media="screen, projection">
+		<link rel="stylesheet" href="css/blueprint/print.css" type="text/css" media="print">
+		<link rel="stylesheet" href="css/page.css" type="text/css" media="print">
+		<link rel="stylesheet" href="css/blueprint/plugins/tabs/screen.css" media="screen, projection">
+		<link type="text/css" href="css/smoothness/jquery-ui-1.7.1.custom.css" rel="stylesheet" />
+		<link type="text/css" href="css/themes/blue/style.css" rel="stylesheet" />
+		<link type="text/css" href="js/addons/pager/jquery.tablesorter.pager.css" rel="stylesheet" />
+		<link type="text/css" href="css/thickbox.css" rel="stylesheet" />
+        	<!-- Additional IE/Win specific style sheet (Conditional Comments) -->
+		<!--[if IE]>
+			<link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
+		<![endif]-->
+        	<script src="js/jquery-1.3.1.min.js" type="text/javascript"></script>
+		<script type="text/javascript" src="js/json.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-1.7.1.custom.min.js"></script>
+		<script type="text/javascript" src="js/jquery.hint.js"></script>
+		<script type="text/javascript" src="js/jquery.pagination.js"></script>
+		<script type="text/javascript" src="js/jquery.endless-scroll-1.3.js"></script>
+		<script type="text/javascript" src="js/jquery.tablesorter.min.js"></script>
+		<script type="text/javascript" src="js/addons/pager/jquery.tablesorter.pager.js"></script>
+        	<script type="text/javascript" src="js/jquery.address-1.0.js"></script>
+		<script src="js/flapjax.js" type="text/javascript"></script>
+		<script type="text/javascript" src="js/thickbox.js"></script>
+       <script type="text/javascript">
+        /*<![CDATA[*/
+            
+            var tabs,
+            tabsSelector = '#tabs ul:first li:has(a[href])',
+            defaultClass = 'ui-state-default',
+            activeClass = 'ui-tabs-selected ui-state-active';
+            
+            // Address handler
+            jQuery.address.init(function(event) {
+                
+                // Tabs setup
+                tabs = jQuery('#tabs').tabs({
+                    // Content filter
+                    load: function(event, ui) {
+                        jQuery(ui.panel).html(jQuery('#tabs div:first', ui.panel).html());
+                    }
+                }).css('display', 'block');
+
+                // Init flicker fix
+                jQuery(tabsSelector).removeClass(activeClass)
+                   .addClass(defaultClass);
+                jQuery(jQuery('a[rel=address:' + jQuery.address.value() + ']')[0].parentNode)
+                   .removeClass(defaultClass).addClass(activeClass);
+               
+            }).change(function(event) {
+                var selection = jQuery('a[rel=address:' + event.value + ']');
+                tabs.tabs('select', selection.attr('href'));
+                jQuery.address.title(jQuery.address.title().split(' | ')[0] + ' | ' + selection.text());
+            });
+
+            // Graceful FOUC
+            document.write('<style type="text/css"> #tabs { display: none; } </style>');
+
+            var BASE_URL = "http://localhost:8080/PDMAFWeb";
+	    jQuery(document).ready(function() {
+				//deal with search submit
+				var resultSet = null;		
+				jQuery('#default-search-button').click(function() {
+					var searchTerm = jQuery('#search').val();
+					searchTerm = searchTerm.replace(new RegExp("[^a-z]", "gi"), "");
+					jQuery("#search-result").text("");
+					jQuery("#search-result-table").text("");
+					jQuery("#pager").hide();			
+					jQuery.post("http://localhost:8080/PDMAFWeb/queryRPC/search", {'searchTerm' : searchTerm}, function(data) {
+						resultSet = JSON.decode(data);		
+						if(resultSet.total_rows > 0) {		
+							jQuery('#search-result').show();
+							jQuery('#search-result').text("Total Result Found : " + resultSet.total_rows);
+							jQuery('#search-result').after("<br>");	
+							jQuery('#search-result').after("<table id='search-result-table' class='tablesorter'><thead><tr><th>Title</th><th>Category</th><th>Posted Date</th><th>Compensation</th></tr></thead><tbody></tbody></table>");		
+							var numberOfRows = (resultSet.total_rows > 9) ? 9: resultSet.total_rows;
+							for (i = 0; i < numberOfRows; ++i) {
+								addTableRow(jQuery('#search-result-table'), resultSet.rows[i].doc);
+							}
+							if (numberOfRows > 9) {
+								jQuery("#pager").show();
+								jQuery("#search-result-table").tablesorter({widthFixed: true, widgets: ['zebra']})
+											      .tablesorterPager({container: jQuery("#pager")});
+							} else {
+								jQuery("#search-result-table").tablesorter({widthFixed: true, widgets: ['zebra']});
+							}	
+										
+						} else {
+							jQuery('#search-result').show();
+							jQuery('#search-result').text("No Result Found.  Please try your search with new keyword.");
+							resultSet = null;
+						}	
+					});
+					return false;
+				});
+
+				//fill up the service listing
+				jQuery.post("http://localhost:8080/PDMAFWeb/queryRPC/getAllServiceRequest", null, function(data) {
+						resultSet = JSON.decode(data);		
+						if(resultSet.total_rows > 0) {		
+							jQuery('#service-request-listing').show();
+							jQuery('#service-request-listing').text("Total Service Request : " + resultSet.total_rows);
+							jQuery('#service-request-listing').after("<br>");	
+							jQuery('#service-request-listing').after("<table id='service-request-listing-table' class='tablesorter'><thead><tr><th>Title</th><th>Category</th><th>Posted Date</th><th>Compensation</th></tr></thead><tbody></tbody></table>");		
+							var numberOfRows = (resultSet.total_rows > 9) ? 9: resultSet.total_rows;
+							for (i = 0; i < numberOfRows; ++i) {
+								addTableRow(jQuery('#service-request-listing-table'), resultSet.rows[i].value);
+							}
+							if (numberOfRows > 9) {
+								jQuery("#service-request-listing-pager").show();
+								jQuery("#service-request-listing-table").tablesorter({widthFixed: true, widgets: ['zebra']})
+											      .tablesorterPager({container: jQuery("#service-request-listing-pager")});
+							} else {
+								jQuery("#service-request-listing-table").tablesorter({widthFixed: true, widgets: ['zebra']});
+							}	
+										
+						} else {
+							jQuery('#service-request-listing').show();
+							jQuery('#service-request-listing').text("No service request listed.");
+							resultSet = null;
+						}	
+				});
+
+				//for flaging when thickbox is shown
+				jQuery("a.flag").live("click", function() { 
+					jQuery("#TB_ajaxWindowTitle").text("Thank you for flagging this post.  The status has been updated.");
+					jQuery.post(BASE_URL + "/serviceRequestRPC/flag", {'as' : jQuery(this).attr("id"),'serviceRequestID' : jQuery(this).attr("serviceRequestID")}, null);		
+					return false; 
+				});
+
+				/**
+				 *   Add a new table row to the bottom of the table
+				 */
+
+				function addTableRow(jQtable, doc) {
+				    jQtable.each(function(){
+					var jQuerytable = jQuery(this);
+					// Number of td's in the last table row
+					var n = jQuery('tr:last td', this).length;
+					var tds = '<tr>';
+					var compensation = (doc.pointsOffered != "") ? pointsOffered : doc.otherCompensation;
+					compensation = (compensation != "") ? compensation : "No compensation";	
+					tds += "<td><a class='thickbox' href='"+BASE_URL+"/serviceRequestRPC/viewServiceRequest?serviceRequestID="+doc._id+"&height=600&width=500' title='' >"+doc.title+"</a></td>" + "<td>"+doc.category+"</td>" + "<td>"+doc.postedDate+"</td>" + "<td>"+compensation+"</td>";
+					tds += '</tr>';
+					if(jQuery('tbody', this).length > 0){
+					   jQuery('tbody', this).append(tds);
+					}else {
+					    jQuery(this).append(tds);
+					}
+					//call thinkbox to recognize the links added.
+					bindThickBoxEvents(); 
+				    });
+				}
+
+				function removeThickBoxEvents() {
+					jQuery('.thickbox').each(function(i) {
+					    jQuery(this).unbind('click');
+					});
+				}
+
+				function bindThickBoxEvents() {
+					removeThickBoxEvents();
+					tb_init('a.thickbox, area.thickbox, input.thickbox');
+				}
+
+				//fixing the form
+				if( document.addEventListener )
+					document.addEventListener( 'DOMContentLoaded', normalform, false);
+
+				function normalform() {
+					  // Hide forms
+					  jQuery( 'form.normalform' ).hide().end();
+
+					  // Processing
+					  jQuery( 'form.normalform' ).find( 'li/label' ).not( '.nonormalform' )
+					.each( function( i ){
+						var labelContent = this.innerHTML;
+						var labelWidth = document.defaultView.
+					getComputedStyle( this, '' ).getPropertyValue( 'width' );
+						var labelSpan = document.createElement( 'span' );
+							labelSpan.style.display = 'block';
+							labelSpan.style.width = labelWidth;
+							labelSpan.innerHTML = labelContent;
+						this.style.display = '-moz-inline-box';
+						this.innerHTML = null;
+						this.appendChild( labelSpan );
+					  } ).end();
+
+					  // Show forms
+					  jQuery( 'form.normalform' ).show().end();
+				}
+
+			
+		});
+		function lookup() {
+				var inputString = jQuery('#search').text();
+				if(inputString.length == 0) {
+					// Hide the suggestion box.
+					jQuery('#suggestions').hide();
+				} else {
+					jQuery.post("http://localhost:8080/PDMAFWeb/queryRPC/getData", {queryString: ""+inputString+""}, function(data){
+						if(data.length >0) {
+							var list = JSON.decode(data);
+							jQuery('#suggestions').show();
+							jQuery('#autoSuggestionsList').html(list.rows[0].value.title);
+						}
+					});
+				}
+			} // lookup
+	
+		function fill(thisValue) {
+				jQuery('#search').val(thisValue);
+				setTimeout("jQuery('#suggestions').hide();", 200);
+		}
+
+		function loader() {
+
+		}
+        /*]]>*/      
+        </script>
+    </head>
+    <body>
+	<div class="container showgrid">
+	<div class="span-24">
+	       <div id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+		    <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+		        <li class="ui-corner-top ui-tabs-selected ui-state-active"><a href="#Overview" title="Overview" rel="address:/">Overview</a></li>
+		        <li class="ui-corner-top ui-state-default"><a href="./features.html" title="Features" rel="address:/features.html">Features</a></li>
+		        <li class="ui-corner-top ui-state-default"><a href="./extras.html" title="Extras" rel="address:/extras.html">Extras</a></li>
+		    </ul>
+		    <div id="Overview" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+		        <p>
+		            This demo utilizes the jQuery UI tabs widget. 
+		            The content is loaded using Ajax and each tab has it's own unique link.
+		        </p>
+		    </div>
+		</div>
+	</div>
+	</div>
+    </body>
+</html>

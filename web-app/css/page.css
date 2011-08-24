@@ -1,0 +1,469 @@
+html {
+    text-align: justify;
+}
+
+/*============================================================
+    2) Button
+		button.baseStyle
+		buttonStrip.baseStyle
+		buttonTable.baseButtonStyle
+		listBar.labelStyle
+		listGrid.headerBaseStyle (not in this skin)
+============================================================*/
+.button,
+.buttonOver,
+.buttonFocused,
+.buttonFocusedOver,
+.buttonDown,
+.buttonFocusedDown,
+.buttonSelected,
+.buttonSelectedFocused,
+.buttonSelectedDown,
+.buttonSelectedFocusedDown,
+.buttonSelectedOver,
+.buttonSelectedFocusedOver,
+.buttonDisabled,
+.buttonSelectedDisabled {
+    padding:2px;
+    font-weight:bold;
+    font-family:Verdana,Bitstream Vera Sans,sans-serif; font-size:11px;
+    background:#DDDDDD url(/images/cssButton/button_stretch.png) repeat-x;
+	color:#4C4C4C;
+    border:1px solid #A6ABB4;
+}
+.buttonDisabled {
+    background:#E9E9E9 url(/images/cssButton/button_Disabled_stretch.png) repeat-x;
+	border-left:1px solid #A7ABB4;
+	border-right:1px solid #A6AAB3;
+	border-top:1px solid #BABDC4;
+	border-bottom:1px solid #B4B8C1;
+}
+.buttonDisabled,
+.buttonSelectedDisabled {
+	font-weight:normal;
+	color:#AAAAAA;
+}
+
+.buttonFocused,
+.buttonFocusedOver,
+.buttonSelectedFocused,
+.buttonSelectedFocusedOver,
+.buttonSelectedFocusedDown {
+	border-left:1px solid #9BC8FF;
+	border-right:1px solid #9BC8FF;
+	border-top:1px solid #B2D3FC;
+	border-bottom:1px solid #AACBF6;
+}
+
+.buttonOver,
+.buttonFocusedOver,
+.buttonSelectedFocused,
+.buttonSelectedFocusedOver {
+    background:#B2D7FF url(/images/cssButton/button_Over_stretch.png) repeat-x;
+}
+
+.buttonDown,
+.buttonFocusedDown,
+.buttonSelectedDown,
+.buttonSelectedFocusedDown {
+    background:#BEDDFF url(/images/cssButton/button_Down_stretch.png) repeat-x;
+	border-left:1px solid #88BFFF;
+	border-right:1px solid #88BFFF;
+	border-top:1px solid #87B6EC;
+	border-bottom:1px solid #75AEEC;
+}
+
+.buttonSelected,
+.buttonSelectedFocused,
+.buttonSelectedOver,
+.buttonSelectedFocusedOver,
+.buttonSelectedDisabled {
+    background:#B2D7FF url(/images/cssButton/button_Over_stretch.png) repeat-x;
+}
+
+/* ImgButton */
+.imgButton,
+.imgButtonOver,
+.imgButtonSelected,
+.imgButtonSelectedDisabled,
+.imgButtonSelectedOver,
+.imgButtonDown,
+.imgButtonSelectedDown,
+.imgButtonDisabled {
+    font-family:Verdana,sans-serif; font-size:10px;
+}
+.imgButtonDisabled {
+    color:#666666;
+}
+
+/* StretchImgButton */
+.stretchImgButton,
+.stretchImgButtonSelected,
+.stretchImgButtonSelectedOver,
+.stretchImgButtonOver,
+.stretchImgButtonDown,
+.stretchImgButtonSelectedDown,
+.stretchImgButtonSelectedDisabled,
+.stretchImgButtonDisabled {
+    font-family:Verdana,sans-serif; font-size:10px;
+}
+.stretchImgButtonOver {
+    font-weight:bold;
+	color:#4C4C4C;
+}
+.stretchImgButtonSelectedDisabled,
+.stretchImgButtonDisabled {
+	font-weight:normal;
+	color:#AAAAAA;
+}
+
+/* Button Title */
+.buttonTitle,
+.buttonTitleOver,
+.buttonTitleDown,
+.buttonTitleSelected,
+.buttonTitleFocused,
+.buttonTitleSelectedFocused,
+.buttonTitleSelectedOver,
+.buttonTitleFocusedOver,
+.buttonTitleSelectedFocusedOver,
+.buttonTitleSelectedDown,
+.buttonTitleFocusedDown,
+.buttonTitleSelectedFocusedDown,
+.buttonTitleDisabled,
+.buttonTitleSelectedDisabled {
+    font-family:Verdana,Bitstream Vera Sans,sans-serif; font-size:11px;
+	color:#4C4C4C;
+    font-weight:bold;
+}
+.buttonTitleDisabled,
+.buttonTitleSelectedDisabled {
+	font-weight:normal;
+	color:#AAAAAA;
+}
+
+/** for form we created with jQuery code **//
+
+form.normalform fieldset {
+  margin-bottom: 10px;
+}
+form.normalform legend {
+  padding: 0 2px;
+  font-weight: bold;
+}
+form.normalform label {
+  display: inline-block;
+  line-height: 1.8;
+  vertical-align: top;
+}
+form.normalform fieldset ol {
+  margin: 0;
+  padding: 0;
+}
+form.normalform fieldset li {
+  list-style: none;
+  padding: 5px;
+  margin: 0;
+}
+form.normalform fieldset fieldset {
+  border: none;
+  margin: 3px 0 0;
+}
+form.normalform fieldset fieldset legend {
+  padding: 0 0 5px;
+  font-weight: normal;
+}
+form.normalform fieldset fieldset label {
+  display: block;
+  width: auto;
+}
+form.normalform em {
+  font-weight: bold;
+  font-style: normal;
+  color: #f00;
+}
+form.normalform label {
+  width: 250px; /* Width of labels */
+}
+form.normalform fieldset fieldset label {
+  margin-left: 123px; /* Width plus 3 (html space) */
+}
+
+form.normalform legend {
+  padding: 0 2px;
+  font-weight: bold;
+  _margin: 0 -7px; /* IE Win */
+}
+
+/** text hint in input box**/
+input.blur {
+	color: #999;
+}
+
+textarea.blur {
+	color: #999;
+}
+/** password hint in input box**/
+input.ezpz-hint {
+	color: #999;
+}
+/*\*//*/
+form.normalform legend {
+  display: inline-block;
+}
+/* IE Mac legend fix */
+
+/* Footer */
+
+/** reset the text area **/
+textarea {
+    height:200px;
+    padding:5px;
+    width:300px;
+}
+
+/** search box for service listing**/
+
+input#search {
+    width: 450px;
+}
+
+input#allthewords  {
+    width: 400px;
+}
+
+input#exactphrase {
+    width: 400px;
+}
+
+input#atleastoneofthesewords {
+    width: 400px;
+}
+
+input#noneofthesewords {
+    width: 400px;
+}
+
+/** reset the border for the tabs **/
+#search-tabs {
+    border: none;
+}
+
+			#service-listing-tabs {
+				min-height: 750px;
+				border: none;
+			}
+
+			#search-container {
+				width: 750px;
+			}
+
+			#sidebar-menu{
+				width:34px;
+				float:left;
+				padding-top: 10px;
+			}
+			#main-tabs {
+				background: none;
+			}
+            /**
+             * Plugin Name: WP-Digg Style Paginator
+             * Plugin URI: http://www.mis-algoritmos.com/2007/09/09/wp-digg-style-pagination-plugin-v-10/
+             * Author: Victor De la Rocha
+             * Author URI: http://www.mis-algoritmos.com
+             */
+            div.pagination {
+                font-family:Verdana,Tahoma,Arial,Helvetica,Sans-Serif;
+                font-size: 13px;
+                text-align:right;
+                padding:4px 6px 4px 0;
+                background-color:#fff;
+                color:#313031;
+            }
+
+            div.pagination {
+                padding: 3px;
+                margin: 3px;
+                text-align:center;
+                font-family:Tahoma,Helvetica,sans-serif;
+                font-size:.85em;
+            }
+
+            div.pagination a {
+                border: 1px solid #ccdbe4;
+                margin-right:3px;
+                padding:2px 8px;
+
+                background-position:bottom;
+                text-decoration: none;
+
+                color: #0061de;
+            }
+            div.pagination a:hover, div.pagination a:active {
+                border: 1px solid #2b55af;
+                background-image:none;
+                background-color:#3666d4;
+                color: #fff;
+            }
+            div.pagination span.current {
+                margin-right:3px;
+                padding:2px 6px;
+
+                font-weight: bold;
+                color: #000;
+            }
+            div.pagination span.disabled {
+                display:none;
+            }
+            div.pagination a.next{
+                border:2px solid #ccdbe4;
+                margin:0 0 0 10px;
+            }
+            div.pagination a.next:hover{
+                border:2px solid #2b55af;
+            }
+            div.pagination a.prev{
+                border:2px solid #ccdbe4;
+                margin:0 10px 0 0;
+            }
+            div.pagination a.prev:hover{
+                border:2px solid #2b55af;
+            }
+
+/** for post service request page **/
+/** service request posting page **/
+
+#service-request-form input.text, input.title {
+    padding:5px;
+    width:450px;
+}
+
+#service-request-form textarea {
+    height: 300px;
+    padding:5px;
+    width:  450px;
+}
+/** to override the width of the radio buttons sections **/
+#email-preference label {
+    width: 33%;
+}
+
+#compensation-preference label {
+    width: 33%;
+}
+
+/** this is for the navigation in profile page **/
+	ul, li{border:0; margin:0; padding:0; list-style:none;}
+	ul.tab {border-bottom:solid 1px #DEDEDE; height:29px; padding-left:20px;}
+	li{float:left; margin-right:2px;}
+	.tab a:link, .tab a:visited{
+		background:url(../images/tab-round.png) right 60px;
+		color:#666666;
+		display:block;
+		font-weight:bold;
+		height:30px;
+		line-height:30px;
+		text-decoration:none;
+	}
+	.tab a span{
+		background:url(../images/tab-round.png) left 60px;
+		display:block;
+		height:30px;
+		margin-right:14px;
+		padding-left:14px;
+	}
+	.tab a:hover{
+		background:url(../images/tab-round.png) right 30px;
+		display:block;
+	}
+	.tab a:hover span{
+		background:url(../images/tab-round.png) left 30px;
+		display:block;
+	}
+
+	/* -------------------------------- */
+	/* 	ACTIVE ELEMENTS					*/
+	.active a:link, .active a:visited, .active a:visited, .active a:hover{
+		background:url(../images/tab-round.png) right 0 no-repeat;
+	}
+	.active a span, .active a:hover span{
+		background:url(../images/tab-round.png) left 0 no-repeat;
+	}
+
+	/**
+	 *Author: Craig Erskine
+	 *Description: Dynamic Menu System - Vertical
+	 **/
+
+	ul#navmenu-v,ul#navmenu-v li,ul#navmenu-v ul {
+	 margin: 0;
+	 list-style: none;
+	}
+
+	ul#navmenu-v li { float: left; position: relative;  width: 100%; }
+	ul#navmenu-v li.iehover { z-index: 1000; /* IE z-index bugfix */ }
+
+	ul#navmenu-v ul {
+	 display: none;
+	 position: absolute;
+	 top: 0;
+	 left: 100%;
+	 z-index: 9999;
+	}
+
+	/* Root Menu */
+	ul#navmenu-v a {
+	 border-top: 1px solid #FFF;
+	 border-right: 1px solid #FFF;
+	 padding: 6px;
+	 display: block;
+	 background: #DDD;
+	 color: #666;
+	 font: bold 11px Arial, sans-serif;
+	 text-decoration: none;
+	 height: 1%;
+	}
+
+	ul#navmenu-v a.active {
+	 border-top: 1px solid #DDD;
+	 border-left: 1px solid #DDD;
+	 border-bottom: 1px solid #DDD;
+	 padding: 6px;
+	 display: block;
+	 background: none;
+	 color: #666;
+	 font: bold 11px Arial, sans-serif;
+	 text-decoration: none;
+	 height: 1%;
+	}
+	/* Root Menu Hover Persistence */
+	ul#navmenu-v a:hover,ul#navmenu-v li:hover a,ul#navmenu-v li.iehover a {
+	 background: #BBB;
+	 color: #FFF;
+	}
+
+	/* Hover Function - Do Not Move */
+	ul#navmenu-v li:hover ul ul,ul#navmenu-v li:hover ul ul ul,ul#navmenu-v li.iehover ul ul,ul#navmenu-v li.iehover ul ul ul { display: none; }
+	ul#navmenu-v li:hover ul,ul#navmenu-v ul li:hover ul,ul#navmenu-v ul ul li:hover ul,ul#navmenu-v li.iehover ul,ul#navmenu-v ul li.iehover ul,ul#navmenu-v ul ul li.iehover ul { display: block; }
+
+	.highlighted {background-color: yellow;}
+
+
+#footer {
+	width: 100%;
+	text-align: center;
+	height: 120px;
+	margin: 0px auto 0 auto;
+	color: #000000;
+    }
+
+#footer p {
+	margin: 0px;
+	padding: 50px 0px 0px 0px;
+	line-height: normal;
+	font-size: smaller;
+    }
+
+#footer a {
+	color: #7ECE05;
+    }

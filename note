@@ -1,0 +1,2 @@
+Naming in the html files - the id for the html element will have name with - in between words but
+the field id will not, as the form submitted has to be read in the params and the - might be a problem.

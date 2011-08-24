@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+
+    </head>
+    <body>
+        <div id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+            <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+                <li class="ui-corner-top ui-state-default"><a href="./index.html" title="Overview">Overview</a></li>
+                <li class="ui-corner-top ui-tabs-selected ui-state-active"><a href="#Features" title="Features">Features</a></li>
+                <li class="ui-corner-top ui-state-default"><a href="./extras.html" title="Extras">Extras</a></li>
+            </ul>
+            <div id="#Features" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+                <div id="search-list">
+				<div class="span-15"> &nbsp; </div>
+				<form id="search-form" name="search" class="normalform" action="" onsubmit="" >
+				<br>
+				<span id="search-container"></span>
+				<span id="default-search-span">	
+					<div><label for="search">Search : </label>
+					<input type="text" class="field text" name="search" value="" id="search" title="Search Service Request..." tabIndex="1" onkeyup="lookup(this.value);" onblur="fill();"/>
+			
+					<input id="default-search-button" class="button" type="submit" value="Go" />
+					</div>
+				</span>	
+				</form>
+			 
+				<div class="span-22"> &nbsp; </div>
+				<div id="pagination" class="span-22">
+					<div id="search-result"></div>
+					<div id="pager" class="pager" style="display:none;">
+						<form>
+							<img src="js/addons/pager/icons/first.png" class="first"/>
+							<img src="js/addons/pager/icons/prev.png" class="prev"/>
+							<input type="text" class="pagedisplay"/>
+							<img src="js/addons/pager/icons/next.png" class="next"/>
+							<img src="js/addons/pager/icons/last.png" class="last"/>
+							<select class="pagesize">
+								<option selected="selected"  value="10">10</option>
+
+								<option value="20">20</option>
+								<option value="30">30</option>
+								<option  value="40">40</option>
+							</select>
+						</form>
+					</div>
+				</div>
+			</div>					
+            </div>
+        </div>
+    </body>
+</html>

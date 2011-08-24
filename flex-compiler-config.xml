@@ -1,0 +1,10 @@
+<flex-config xmlns="http://www.adobe.com/2006/flex-config">
+  <compiler>
+    <debug>true</debug>
+    <source-path><path-element>src/actionscript</path-element></source-path>
+  </compiler>
+  <file-specs>
+    <path-element>src/PDMAFWeb.mxml</path-element>
+  </file-specs>
+  <output>C:/Program Files/eclipse/workspace/PDMAFWeb/web-app/WEB-INF/classes/PDMAFWeb/</output>
+</flex-config>

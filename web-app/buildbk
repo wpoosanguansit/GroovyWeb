@@ -1,0 +1,109 @@
+/**
+ * to introject scala compiling and post compile aspectj
+ * after the groovy compile and java compile 
+ */
+
+	
+ant.path(id: 'lib') {
+		fileset(dir: "${basedir}/lib/", includes: "*.jar" )	
+}	 
+
+eventCompileStart = { s -> 
+
+    ant.sequential {
+
+    	
+    }
+}
+
+eventCompileEnd = { s ->
+	
+    ant.sequential {
+
+    	println "Compiling AspectJ ...."
+		taskdef (resource : 'org/aspectj/tools/ant/taskdefs/aspectjTaskdefs.properties' ) {
+			classpath {
+					pathelement(location: "${basedir}/lib/aspectjtools.jar")
+					pathelement(location: "${basedir}/lib/aspectjweaver.jar")
+				}	
+		}
+		
+		iajc (
+				source: "1.5",
+				target: "1.5",
+				compliance: "1.5",
+				destdir: "${basedir}/web-app/WEB-INF/classes",
+				sourceroots: "${basedir}/src/aspectj",
+				classpathRef: "lib"
+			 )
+			 
+		println "Compiling Scala ...."
+		taskdef (resource : 'scala/tools/ant/antlib.xml' ) {
+			classpath {
+					pathelement(location: "${basedir}/lib/scala-compiler.jar")
+					pathelement(location: "${basedir}/lib/scala.library.jar")
+				}	
+		}
+		
+    	scalac (
+    				srcdir: "${basedir}/src",
+    				destdir: "${basedir}/web-app/WEB-INF/classes",
+    				classpathref: "lib",
+    				force: "changed"
+    			
+    		    ) {
+    				include(name: "scala/**/*.scala")
+    				exclude(name: "")
+    				
+    	}
+       
+		iajc (
+				source: "1.5",
+				target: "1.5",
+				compliance: "1.5",
+				destdir: "${basedir}/web-app/WEB-INF/classes",
+				sourceroots: "${basedir}/src/aspectj",
+				classpathRef: "lib"
+			 )
+	  }
+
+}
+
+/**
+ *This is for the testing that shoud include scala tests as well
+ *
+ **/
+ 
+ eventAllTestsStart = { msg ->
+	println "Testing Scala ...."
+
+	ant.mkdir(dir: "${basedir}/web-app/WEB-INF/classes/WEB-INF/couchdb-views")
+	ant.copy(todir: "${basedir}/web-app/WEB-INF/classes/WEB-INF") {
+        fileset(dir: "${basedir}/web-app/WEB-INF/") {
+            include(name: '*.xml')
+            include(name: '*.properties')
+        }
+    }
+
+	println "hhheerrrrreeeeeee"	  
+ 	ant.junit(haltonfailure: "true", showoutput: "true") {
+				classpath {
+					fileset(dir: "${basedir}/web-app/WEB-INF/classes", includes: "**/*.classes" )	
+					fileset(dir: "${basedir}/lib", includes: "*.jar" )
+					pathelement(location: "${basedir}/lib/scalatest.jar"
+					pathelement(location: "${basedir}/lib/scala-library-2.6.1-final.jar")
+
+				}
+				formatter(type: "brief", usefile: "false")
+ 				batchtest(fork: "no") {
+ 							fileset(dir: "${basedir}/web-app/WEB-INF/classes", includes: "**/*Test.class" )
+ 				}
+ 	}
+ 	println "and herrrrrrrrrrrrrrrreeee"	  
+ 	ant.junitreport(	todir: "${basedir}/test/reports") {
+ 			  			fileset(dir: "${basedir}/test/reports"
+ 			  	    ) { include(name: 'TEST-*.xml')
+ 			  			}
+ 			  			report(format: 'frames', todir: "${basedir}/test/reports")
+ 	}
+ }

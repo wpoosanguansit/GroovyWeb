@@ -1,0 +1,11 @@
+<!DOCTYPE aspectj PUBLIC    
+  "-//AspectJ//DTD//EN"    "http://www.eclipse.org/aspectj/dtd/aspectj.dtd">    
+
+<aspectj>    
+   <weaver options="-verbose">
+	 <include within="com.careerpacific.utility.aop.ContextAccessor"/>
+   </weaver>
+   <aspects>
+	<aspect name="com.careerpacific.utility.aop.ContextAccessorAspect"/>
+   </aspects>
+</aspectj>

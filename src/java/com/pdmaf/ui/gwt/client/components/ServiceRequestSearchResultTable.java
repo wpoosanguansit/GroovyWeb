@@ -1,0 +1,126 @@
+package com.pdmaf.ui.gwt.client.components;
+
+import com.google.gwt.user.client.ui.*;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.event.dom.client.*;
+import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.SpanElement;
+import com.pdmaf.ui.gwt.client.table.*;
+import com.pdmaf.ui.gwt.client.json.ServiceRequest;
+import com.pdmaf.ui.gwt.client.rpc.ServiceRequestRPC;
+
+/**
+ * Created by IntelliJ IDEA.
+ * User: watt poosanguansit
+ * Date: Apr 27, 2009
+ * Time: 1:13:53 PM
+ */
+public class ServiceRequestSearchResultTable extends Composite {
+
+        private FlexTable pagingControlsTable;
+        private FlexTable resultsTable;
+        private HorizontalPanel mainPanel;
+        private TextBox searchTextBox, allthewordsTextBox, exactphraseTextBox, atleastoneofthesewordsTextBox,
+                noneofthesewordsTextBox;
+        private DefaultPaginationBehavior searchResultTable;
+    
+        public ServiceRequestSearchResultTable() {
+                addSubmitCall(this, "service_requests_search");
+                mainPanel = new HorizontalPanel();
+                searchTextBox = TextBox.wrap(formElement("search"));
+                allthewordsTextBox = TextBox.wrap(formElement("allthewords"));
+                exactphraseTextBox = TextBox.wrap(formElement("exactphrase"));
+                atleastoneofthesewordsTextBox = TextBox.wrap(formElement("atleastoneofthesewords"));
+                noneofthesewordsTextBox = TextBox.wrap(formElement("noneofthesewords"));
+                resultsTable = new FlexTable();
+                resultsTable.setWidth("100%");
+                resultsTable.getCellFormatter().setWidth(0, 0, "60%");
+                resultsTable.getCellFormatter().setWidth(0, 1, "10%");
+                resultsTable.getCellFormatter().setWidth(0, 2, "10%");
+                resultsTable.getCellFormatter().setWidth(0, 3, "20%");
+                pagingControlsTable = new FlexTable();
+                mainPanel.add(resultsTable);
+                mainPanel.add(pagingControlsTable);
+                initWidget(mainPanel);
+        }
+
+        public void onSubmit() {
+            initSearchResultTable();
+            searchResultTable.showPage(1, "postedDate", true);
+        }
+
+    	private Element formElement(String prefix) {
+		    return DOM.getElementById(prefix);
+	    }
+
+	    private native void addSubmitCall(ServiceRequestSearchResultTable table, String functionName)/*-{
+		    $wnd[functionName] = function() { table.@com.pdmaf.ui.gwt.client.components.ServiceRequestSearchResultTable::onSubmit()(); };
+	    }-*/;
+
+        private FlexTable getResultsTable() {
+                return resultsTable;
+        }
+
+        private FlexTable getPagingControlsTable() {
+                return pagingControlsTable;
+        }
+
+        private DefaultPaginationBehavior initSearchResultTable() {
+            if (searchResultTable != null) {
+                return searchResultTable;
+            } else {
+                return searchResultTable = new DefaultPaginationBehavior(
+                             getPagingControlsTable(), getResultsTable(), 3) {
+                     protected RowRenderer getRowRenderer() {
+                             return new RowRenderer() {
+                                     public void populateRow(PaginationBehavior pagination,
+                                                     int row, Object object) {
+                                             ServiceRequest request = (ServiceRequest) object;
+                                             if (request == null) {
+                                                 return;
+                                             }
+                                             // Name Column
+                                             Hyperlink link = new Hyperlink(request.getTitle(), "name");
+                                             link.addClickHandler(new ClickHandler() {
+                                                 @Override
+                                                 public void onClick(ClickEvent event) {
+
+                                                 }
+                                             });
+                                             setCell(row, 0, link);
+                                             setCell(row, 1, new Label(request.getCategory()));
+                                             setCell(row, 2, new Label(request.getStringPostedDate()));
+                                             setCell(row, 3, new Label(Integer.toString(request.getPointsOffered())));
+
+                                     }
+
+                             };
+                     }
+
+                     protected DataProvider getDataProvider() {
+                             return new DataProvider() {
+                                     public void update(PaginationParameters parameters,
+                                                     AsyncCallback updateTableCallback) {
+                                         ServiceRequestRPC.get().simpleSearchServiceRequest(
+                                           searchTextBox.getText(), updateTableCallback
+                                         );
+                                     }
+
+                             };
+                     }
+
+                     protected Column[] getColumns() {
+                             return new Column[] {
+                                     new Column("Description", "description"),
+                                     new Column("Category", "category"),
+                                     new Column("Date", "postedDate"),
+                                     new Column("Points Offered","pointsOffered")
+                             };
+                     }
+                };
+            }
+        }
+}

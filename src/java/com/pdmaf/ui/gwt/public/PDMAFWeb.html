@@ -1,0 +1,240 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- The HTML 4.01 Transitional DOCTYPE declaration-->
+<!-- above set at the top of the file will set     -->
+<!-- the browser's rendering engine into           -->
+<!-- "Quirks Mode". Replacing this declaration     -->
+<!-- with a "Standards Mode" doctype is supported, -->
+<!-- but may lead to some differences in layout.   -->
+
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <!--                                           -->
+    <!-- Any title is fine                         -->
+    <!--                                           -->
+    <title>PDMAFWeb</title>
+
+    <!--                                           -->
+    <!-- This script loads your compiled module.   -->
+    <!-- If you add any GWT meta tags, they must   -->
+    <!-- be added before this line.                -->
+    <!--                                           -->
+    <link rel="stylesheet" href="css/blueprint/screen.css" type="text/css" media="screen, projection">
+	<link rel="stylesheet" href="css/blueprint/print.css" type="text/css" media="print">
+	<link rel="stylesheet" href="css/pages.css" type="text/css" media="print">
+	<link rel="stylesheet" href="css/blueprint/plugins/tabs/screen.css" media="screen, projection">
+	<link type="text/css" href="css/smoothness/jquery-ui-1.7.1.custom.css" rel="stylesheet" />
+        <!-- Additional IE/Win specific style sheet (Conditional Comments) -->
+		<!--[if IE]>
+			<link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
+		<![endif]-->
+    <script type="text/javascript" language="javascript" src="js/json.js"></script>
+    <script type="text/javascript" language="javascript" src="js/jquery-1.3.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.7.1.custom.min.js"></script>
+	<script type="text/javascript" src="js/jquery.hint.js"></script>  
+    <script type="text/javascript" language="javascript" src="js/flapjax.js"></script>
+    <script type="text/javascript" language="javascript" src="com.pdmaf.ui.gwt.PDMAFWeb.nocache.js"></script>    
+    <script type="text/javascript">
+        var pageName = 'PDMAFWeb';
+		jQuery(document).ready(function(){
+
+				jQuery("#service-listing-tabs").tabs();
+
+				//simple search form
+				var defaultSearchSpan = jQuery('span#default-search-span').clone();
+				var advancedSearchSpan = jQuery('span#advanced-search-span').clone();
+				jQuery('span#search-container').html(defaultSearchSpan.show());
+				//set up the hint
+				jQuery('input:text').hint();
+				var toggle = 0;
+				jQuery('a#searchlink').bind('click',  function() {
+					if ((toggle % 2) == 0) {
+						jQuery('a#searchlink').text('Simple Search');
+						jQuery('span#search-container').html('');
+						jQuery('span#search-container').html(advancedSearchSpan.show());
+						//reset the hint
+						jQuery('input:text').hint();
+					}	else {
+						jQuery('a#searchlink').text('Advanced Search');
+						jQuery('span#search-container').html('');
+						jQuery('span#search-container').html(defaultSearchSpan.show());
+						//reset the hint
+						jQuery('input:text').hint();
+					}
+					toggle++;
+				});
+
+				//set up the side menu bar pages
+				jQuery('a#registered-users').click(function(){
+					//hover has to change the img and when click as well
+					jQuery('div#service-request-by-registered-users').show();
+					jQuery('div#service-request-by-non-registered-users').hide();
+				});
+
+				jQuery('a#non-registered-users').click(function(){
+					//hover has to change the img and when click as well
+					jQuery('div#service-request-by-registered-users').hide();
+					jQuery('div#service-request-by-non-registered-users').show();
+				});
+
+				//fixing the form
+				if( document.addEventListener )
+					document.addEventListener( 'DOMContentLoaded', normalform, false);
+
+				function normalform(){
+					  // Hide forms
+					  jQuery( 'form.normalform' ).hide().end();
+
+					  // Processing
+					  jQuery( 'form.normalform' ).find( 'li/label' ).not( '.nonormalform' )
+					.each( function( i ){
+						var labelContent = this.innerHTML;
+						var labelWidth = document.defaultView.
+					getComputedStyle( this, '' ).getPropertyValue( 'width' );
+						var labelSpan = document.createElement( 'span' );
+							labelSpan.style.display = 'block';
+							labelSpan.style.width = labelWidth;
+							labelSpan.innerHTML = labelContent;
+						this.style.display = '-moz-inline-box';
+						this.innerHTML = null;
+						this.appendChild( labelSpan );
+					  } ).end();
+
+					  // Show forms
+					  jQuery( 'form.normalform' ).show().end();
+				}
+
+
+		});
+
+		function loader() {
+
+		}
+		</script>
+		<style type="text/css" media="screen">	
+        ul, li{border:0; margin:0; padding:0; list-style:none;}
+        ul.tab {border-bottom:solid 1px #DEDEDE; height:29px; padding-left:20px;}
+        li{float:left; margin-right:2px;}
+        .tab a:link, .tab a:visited{
+            background:url(images/tab-round.png) right 60px;
+            color:#666666;
+            display:block;
+            font-weight:bold;
+            height:30px;
+            line-height:30px;
+            text-decoration:none;
+        }
+        .tab a span{
+            background:url(images/tab-round.png) left 60px;
+            display:block;
+            height:30px;
+            margin-right:14px;
+            padding-left:14px;
+        }
+        .tab a:hover{
+            background:url(images/tab-round.png) right 30px;
+            display:block;
+        }
+        .tab a:hover span{
+            background:url(images/tab-round.png) left 30px;
+            display:block;
+        }
+
+        /* -------------------------------- */
+        /* 	ACTIVE ELEMENTS					*/
+        .active a:link, .active a:visited, .active a:visited, .active a:hover{
+            background:url(images/tab-round.png) right 0 no-repeat;
+        }
+        .active a span, .active a:hover span{
+            background:url(images/tab-round.png) left 0 no-repeat;
+        }
+
+        /**
+         *Author: Craig Erskine
+         *Description: Dynamic Menu System - Vertical
+         **/
+
+        ul#navmenu-v,ul#navmenu-v li,ul#navmenu-v ul {
+         margin: 0;
+         list-style: none;
+        }
+
+        ul#navmenu-v li { float: left; position: relative;  width: 100%; }
+        ul#navmenu-v li.iehover { z-index: 1000; /* IE z-index bugfix */ }
+
+        ul#navmenu-v ul {
+         display: none;
+         position: absolute;
+         top: 0;
+         left: 100%;
+         z-index: 9999;
+        }
+
+        /* Root Menu */
+        ul#navmenu-v a {
+         border-top: 1px solid #FFF;
+         border-right: 1px solid #FFF;
+         padding: 6px;
+         display: block;
+         background: #DDD;
+         color: #666;
+         font: bold 11px Arial, sans-serif;
+         text-decoration: none;
+         height: 1%;
+        }
+
+        ul#navmenu-v a.active {
+         border-top: 1px solid #DDD;
+         border-left: 1px solid #DDD;
+         border-bottom: 1px solid #DDD;
+         padding: 6px;
+         display: block;
+         background: none;
+         color: #666;
+         font: bold 11px Arial, sans-serif;
+         text-decoration: none;
+         height: 1%;
+        }
+        /* Root Menu Hover Persistence */
+        ul#navmenu-v a:hover,ul#navmenu-v li:hover a,ul#navmenu-v li.iehover a {
+         background: #BBB;
+         color: #FFF;
+        }
+
+        /* Hover Function - Do Not Move */
+        ul#navmenu-v li:hover ul ul,ul#navmenu-v li:hover ul ul ul,ul#navmenu-v li.iehover ul ul,ul#navmenu-v li.iehover ul ul ul { display: none; }
+        ul#navmenu-v li:hover ul,ul#navmenu-v ul li:hover ul,ul#navmenu-v ul ul li:hover ul,ul#navmenu-v li.iehover ul,ul#navmenu-v ul li.iehover ul,ul#navmenu-v ul ul li.iehover ul { display: block; }
+
+        .highlighted {background-color: yellow;}
+		</style>
+    </head>
+    <body>
+	<div class="container showgrid">
+		<div class="span-24">
+
+                <!-- Tabbed bar code-->
+                <ul class="tab">
+                    <li><a href="#"><span>Profile</span></a></li>
+                    <li><a href="#"><span>Service Request</span></a></li>
+                    <li class="active"><a href="${url}profile/serviceProvider"><span>Service Provider</span></a></li>
+                        <li><a href="#"><span>Donation</span></a></li>
+                </ul><br>
+                <div class="span-24">
+                  <!-- Tabbed side bar code-->
+                  <div class="span-4">
+                        <div class="span-4"> &nbsp;</div>
+                        <div class="span-4"> &nbsp;</div>
+                        <div class="span-4"> &nbsp;</div>
+                        <ul id="navmenu-v">
+                      <li><a href="#">Directory</a></li>
+                      <li><a class="active" href="#">Sign up form</a></li>
+                        </ul>
+                  </div>
+                  <div class="span-18">
+                      <div id="service-provider-form"></div>
+                  </div>
+                </div>
+         </div>
+    </div>
+    </body>
+</html>

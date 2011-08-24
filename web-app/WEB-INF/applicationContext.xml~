@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+				xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               	xmlns:aop="http://www.springframework.org/schema/aop"
+               	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+				http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+ 				http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+               	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+	<import resource="couchdb-views.xml"/>
+
+    <aop:spring-configured/>
+
+	<bean id="grailsApplication"
+			class="org.codehaus.groovy.grails.commons.GrailsApplicationFactoryBean">
+				<description>Grails application factory bean</description>
+				<property name="grailsDescriptor" value="/WEB-INF/grails.xml" />
+				<property name="grailsResourceLoader" ref="grailsResourceLoader" />
+	</bean>
+
+	<bean id="pluginManager"
+		class="org.codehaus.groovy.grails.plugins.GrailsPluginManagerFactoryBean">
+		<description>A bean that manages Grails plugins</description>
+		<property name="grailsDescriptor" value="/WEB-INF/grails.xml" />
+		<property name="application" ref="grailsApplication" />
+	</bean>
+
+	<bean id="pluginMetaManager"
+		class="org.codehaus.groovy.grails.plugins.DefaultPluginMetaManager">
+		<property name="grailsApplication" ref="grailsApplication" />
+		<property name="resourcePattern" value="/WEB-INF/plugins/*/plugin.xml" />
+	</bean>
+
+	<bean id="grailsConfigurator"
+		class="org.codehaus.groovy.grails.commons.spring.GrailsRuntimeConfigurator">
+		<constructor-arg>
+			<ref bean="grailsApplication" />
+		</constructor-arg>
+		<property name="pluginManager" ref="pluginManager" />
+	</bean>
+
+	<bean id="grailsResourceLoader"
+		class="org.codehaus.groovy.grails.commons.GrailsResourceLoaderFactoryBean">
+		<property name="grailsResourceHolder" ref="grailsResourceHolder" />
+	</bean>
+
+	<bean id="grailsResourceHolder" scope="prototype"
+		class="org.codehaus.groovy.grails.commons.spring.GrailsResourceHolder">
+		<property name="resources">
+			<value>classpath*:**/grails-app/**/*.groovy
+			</value>
+		</property>
+	</bean>
+
+	<bean id="characterEncodingFilter" class="org.springframework.web.filter.CharacterEncodingFilter">
+		<property name="encoding">
+			<value>utf-8</value>
+		</property>
+	</bean>
+
+   										<!-- application specifics  -->
+
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" lazy-init="default" autowire="default" dependency-check="default">
+		<property name="location">
+  			<value>/WEB-INF/jdbc.properties</value>
+  		</property>
+  	</bean>
+
+	<!--  context aware bean, for objects to access spring context from outside spring container -->
+
+	<bean class="org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator" />
+
+  	<bean id="contextAccessorAspect" scope="singleton" class="com.pdmaf.utils.aop.ContextAccessorAspect" factory-method="aspectOf" />
+
+  	    <!-- context aware bean, for objects to access spring context from outside spring container -->
+  	    <!-- context aware bean, for objects to access spring context from outside spring container -->
+    <bean id="contextAccessor" scope="singleton" class="com.pdmaf.utils.aop.ContextAccessor"/>
+
+	<bean id="contextSource" class="org.springframework.ldap.core.support.LdapContextSource">
+		<property name="url" value="ldap://localhost:389" />
+		<property name="base" value="dc=pdmaf,dc=com" />
+		<property name="userDn" value="cn=admin,dc=pdmaf,dc=com" />
+		<property name="password" value="imagine" />
+	</bean>
+
+	<bean id="ldap" class="org.springframework.ldap.core.LdapTemplate">
+	  <constructor-arg ref="contextSource" />
+	</bean>
+
+</beans>

@@ -1,0 +1,134 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="css/blueprint/screen.css" type="text/css" media="screen, projection">
+		<link rel="stylesheet" href="css/blueprint/print.css" type="text/css" media="print">
+		<link rel="stylesheet" href="css/page.css" type="text/css" media="print">
+		<link type="text/css" href="css/smoothness/jquery-ui-1.7.1.custom.css" rel="stylesheet" />
+        <!-- Additional IE/Win specific style sheet (Conditional Comments) -->
+        <!--[if lte IE 7]>
+			<link rel="stylesheet" href="jquery.tabs-ie.css" type="text/css" media="projection, screen">
+        <![endif]-->
+		<!--[if IE]>
+			<link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
+		<![endif]-->
+        <script src="js/jquery-1.3.1.min.js" type="text/javascript"></script>
+		<script type="text/javascript" src="js/jquery-ui-1.7.1.custom.min.js"></script>
+		<script type="text/javascript" src="js/jquery.hint.js"></script>
+		<script src="js/flapjax.js" type="text/javascript"></script>
+		
+        <script type="text/javascript">
+		jQuery(document).ready(function(){
+		
+				loader();
+				
+
+
+		});
+	
+		function loader() {
+		}
+		</script>
+	<style>
+	#menu {padding:0; margin:0; list-style:none;}
+	#menu li {float:left; margin-left:1px; padding-top:2px;}
+	#menu li a {display:block; height:38px; line-height:38px; padding:0 20px 0 0; float:left; background: url(images/tab_a.gif) no-repeat right top; color:#000; text-decoration:none;}
+	#menu li a b {display:block; height:38px; float:left; padding:0 0 0 20px; background: url(images/tab_b.gif) left top; cursor:pointer;}
+	#menu li a:hover, 
+	.home #menu li#home a,
+	.single #menu li#single a,
+	.dropdown #menu li#dropdown a,
+	.dropline #menu li#dropline a,
+	.flyout #menu li#flyout a,
+	.support #menu li#support a,
+	.contact #menu li#contact a
+	{background-position:right -51px; margin-top:-2px; height:40px;}
+	#menu li a:hover b,
+	.home #menu li#home a b,
+	.single #menu li#single a b,
+	.dropdown #menu li#dropdown a b,
+	.dropline #menu li#dropline a b,
+	.flyout #menu li#flyout a b,
+	.support #menu li#support a b,
+	.contact #menu li#contact a b
+	{background-position:left -51px; height:40px;}
+	</style>
+    </head>
+    <body>
+	<div id=navigation class="home">	
+		<ul id="menu">
+			<li id="home"><a href="file:///home/watt/PDMAFWeb/web-app/TestPostServiceRequest.html"><b>Home</b></a></li>
+			<li id="single"><a href="single.html"><b>Single Level</b></a></li>
+			<li id="dropdown"><a href="dropdown.html"><b>Dropdown</b></a></li>
+			<li id="dropline"><a href="dropline.html"><b>Dropline</b></a></li>
+			<li id="flyout"><a href="flyout.html"><b>Flyout</b></a></li>
+			<li id="support"><a href="support.html"><b>Support</b></a></li>
+			<li id="contact"><a href="contact.html"><b>Contact</b></a></li>
+		</ul>
+	</div>
+	<div class="container showgrid">
+		<div class="span-16 prepend-2">
+			             <form id="publish-service-request" class="normalform" action="${url}serviceRequest/showAddComment" method="POST">
+                <input  type="hidden" value="${serviceRequest.id()}" name="serviceRequestID">
+                <fieldset>
+                    <legend>Service Request</legend>
+                        <h6>
+                            ${flashMessage}
+                        </h6><br>
+                        <ol>
+                            <li><label>Posting Title : </label> ${serviceRequest.getTitle()} </li>
+                            <li><label>Reply Email : </label> ${if (serviceRequest.getShowEmailPreference() == "showemail")
+                                                                        serviceRequest.getReplyEmail()
+                                                                 else if (serviceRequest.getShowEmailPreference() == "anonymizedemail")
+                                                                        serviceRequest.getEmailHashKey()
+                                                                 else
+                                                                        return "No email shown"
+                                                                } </li>
+                            <li><label>Specific Location : </label> ${serviceRequest.getSpecificLocation()} </li>
+                            <li><label>City : </label> ${serviceRequest.getCity()} </li>
+                            <li><label>State : </label> ${serviceRequest.getState()} </li>
+                            <li><label>Country : </label> ${serviceRequest.getcountry()} </li>
+                            <li><label>Category :</label> ${serviceRequest.getCategory()}</li>
+                            <li><label>Full Description :</label> ${serviceRequest.getDescription()}</li>
+                            <li><label>Compensation Preference : </label> ${if(serviceRequest.getPointsOffered())
+                                                                                serviceRequest.getPointsOffered() + " points"
+                                                                            else if (serviceRequest.getOthercompensation())
+                                                                                serviceRequest.getOthercompensation()
+                                                                            else
+                                                                                return "No Compensation"
+                                                                           }
+                            </li>
+                        </ol>
+                </fieldset>
+                <p>
+                    <span>
+						<input id="author" name="authro" type="text" class="field text" title="Plese fill in your name..." value="" size="25" tabindex="7" />
+					</span>
+                    <span>
+                        <textarea cols="40" rows="5" name="text" type="text" class="field text" title="Please fill in your comment.  In appropriate content will be removed.  Please be considerate in providing accurate information..." value="" size="100" tabindex="17" ></textarea>
+                    </span>
+		</p>
+		<p>
+                    <input id="addcomment" name="addcomment" class="button" type="submit" value="Add Comment" tabindex="1"/>
+			    </p>
+              </form>
+
+	</div>
+	<div class="span-4">
+		<p> &nbsp; </p>
+		<p><a href="${url}serviceRequest/flag?as=spam&serviceRequestID=${serviceRequest.id()}">Flag this post as Spam</a></p>
+              	<p><a href="${url}serviceRequest/flag?as=miscategorized&serviceRequestID=${serviceRequest.id()}">Flag this post as Miscategorized</a></p>
+              	<p><a href="${url}serviceRequest/flag?as=prohibited&serviceRequestID=${serviceRequest.id()}">Flag this post as Should be Prohibited</a></p>
+              	<p><a href="${url}serviceRequest/flag?as=great&serviceRequestID=${serviceRequest.id()}">Flag this post as Great</a></p> 
+	</div>
+	<div class="span-20 prepend-2 append-2">
+		<p>Comments :</p>
+			   Posted By - ${comment.getAuthor()} <br>
+                    	   At        - ${comments.getCreatedDate()} <br>
+                           Content   - ${comments.getText()}<br><br>
+                           Posted By - ${comment.getAuthor()} <br>
+                    	   At        - ${comments.getCreatedDate()} <br>
+                           Content   - ${comments.getText()}<br><br>
+	</div>		
+	</div>
+    </body>
+</html>

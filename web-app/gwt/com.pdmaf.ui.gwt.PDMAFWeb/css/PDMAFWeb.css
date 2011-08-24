@@ -1,0 +1,111 @@
+/* the generic dialog */
+
+.pdmaf-GenericDialog {
+	background-color: white;
+	border: 1px solid #ff9a40;
+}
+
+.pdmaf-GenericDialog .topPanel {
+	background-color: #ff9a40;
+	color: white;
+	font-weight: bold;
+	font-size: 14px;
+	padding: 8px;
+}
+
+.pdmaf-GenericDialog .mainPanel {
+	padding: 6px 14px;
+}
+
+.pdmaf-GenericDialog .bottomPanel {
+	width: 100%;
+	overflow: auto;
+}
+
+.pdmaf-GenericDialog .pdmaf-SubmitButton {
+	float: right;
+	margin: 0 4px 4px 0;
+	padding: 2px 6px;
+}
+
+.pdmaf-GenericDialog .gwt-TextBox {
+	width: 300px;
+	margin-bottom: 10px;
+}
+
+.pdmaf-GenericDialog .gwt-TextArea {
+	width: 300px;
+	height: 90px;
+}
+
+.pdmaf-GenericDialog .gwt-Label {
+	margin: 6px 0px;
+}
+
+.pdmaf-WhiteLinkButton {
+	color: white;
+	text-decoration: underline;
+	font-weight: bold;
+}
+
+a.pdmaf-WhiteLinkButton:hover, .pdmaf-WhiteLinkButton-up-hovering, .pdmaf-WhiteLinkButton-down-hovering {
+	color: #ff9a40;
+}
+
+.pdmaf-PWLinkButton {
+	color: white;
+	text-decoration: none;
+}
+
+a.pdmaf-PWLinkButton:hover, .pdmaf-PWLinkButton-up-hovering, .pdmaf-PWLinkButton-down-hovering {
+	text-decoration: underline;
+}
+
+.pdmaf-TextDialog .content .pdmaf-SubmitButton {
+	margin-top: 4px;
+	float: right;
+}
+
+
+.pdmaf-ToolTip {
+	max-width: 240px;
+}
+
+.pdmaf-ToolTip-top {
+	height: 28px;
+}
+
+html>body .pdmaf-ToolTip-top {
+	background-image: url(../images/tooltip-top.png);
+}
+
+* html .pdmaf-ToolTip-top {
+	overflow: hidden;
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/tooltip-top.png',sizingMethod='crop');
+}
+
+.pdmaf-ToolTip .gwt-Label {
+	background-color: white;
+	padding: 6px;
+	border-style: none solid solid solid;
+	border-color: #ff9a40;
+	border-width: 4px;
+	font-weight: bold;
+	color: #20899a;
+}
+
+/** for pagination behavior **/
+.oddRow { }
+.evenRow { }
+.oddCell { }
+.evenCell { }
+.headerRow { width: 30px; background: lightblue; }
+.headerCell {  }
+.pagingRow { }
+.noPreviousPageCell { }
+.previousPageCell { }
+.pageCell { }
+.currentPageCell { }
+.noNextPageCell { }
+.nextPageCell { }
+.error { font-size: 0.5em; }

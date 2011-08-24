@@ -1,0 +1,18 @@
+<module>
+    <!-- Inherit the core Web Toolkit stuff.                  -->
+    <inherits name="com.google.gwt.event.dom.DomEvent"/>
+    <inherits name="com.google.gwt.user.User"/>
+    <inherits name="com.google.gwt.i18n.I18N" />
+    <!-- Inherit the client side JSON handling. -->
+    <inherits name='com.google.gwt.json.JSON'/>
+<!--    <inherits name="com.smartgwt.SmartGwt"/> 
+    <inherits name='org.restlet.GWT'/> -->
+<!--     <inherits name="com.smartclient.theme.enterprise.Enterprise" />  
+    <inherits name="com.google.gwt.junit.JUnit"/> -->
+
+    <!-- style sheet     -->
+    <stylesheet src="css/PDMAFWeb.css" />
+    <!-- Specify the module entry point class.                   -->
+    <entry-point class="com.pdmaf.ui.gwt.client.PDMAFWeb"/>
+    <!--<entry-point class="com.pdmaf.ui.gwt.client.test.Exampleple" /> -->
+</module>
